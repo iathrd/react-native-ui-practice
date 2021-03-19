@@ -7,6 +7,7 @@ import {
   Text,
   SafeAreaView,
   Image,
+  StatusBar
 } from 'react-native';
 import {Header} from 'react-native/Libraries/NewAppScreen';
 import {COLORS, FONTS, icons, images, SIZES} from '../constants';
@@ -185,10 +186,16 @@ export default function Home() {
                 alignItems: 'center',
                 justifyContent: 'center',
               }}>
-                <Image source={item.icon} resizeMode="contain" style={{height:20,width:20,tintColor:item.color}} />
-                
-              </View>
-              <Text style={{textAlign:'center',flexWrap:'wrap',...FONTS.body4}} >{item.description}</Text>
+              <Image
+                source={item.icon}
+                resizeMode="contain"
+                style={{height: 20, width: 20, tintColor: item.color}}
+              />
+            </View>
+            <Text
+              style={{textAlign: 'center', flexWrap: 'wrap', ...FONTS.body4}}>
+              {item.description}
+            </Text>
           </TouchableOpacity>
         );
       };
@@ -206,22 +213,18 @@ export default function Home() {
       );
     }
 
-    const renderPromoHeader= ()=> {
+    const renderPromoHeader = () => {
       return (
-        <View
-        style={{flexDirection:'row',marginBottom:SIZES.padding}}
-        >
-          <View style={{flex:1}}>
-          <Text style={{...FONTS.h3}} >Special promo</Text>
+        <View style={{flexDirection: 'row', marginBottom: SIZES.padding}}>
+          <View style={{flex: 1}}>
+            <Text style={{...FONTS.h3}}>Special promo</Text>
           </View>
-          <TouchableOpacity onPress={()=>console.log("View all")} >
-          <Text style={{color:COLORS.gray,...FONTS.body4}}>
-            View all
-          </Text>
+          <TouchableOpacity onPress={() => console.log('View all')}>
+            <Text style={{color: COLORS.gray, ...FONTS.body4}}>View all</Text>
           </TouchableOpacity>
         </View>
-      )
-    }
+      );
+    };
 
     const HeaderComponnent = () => {
       return (
@@ -271,6 +274,14 @@ export default function Home() {
       );
     };
 
+    const onEnd = () => {
+      return (
+        <View>
+          <Text>PPPP</Text>
+        </View>
+      )
+    }
+
     return (
       <FlatList
         ListHeaderComponent={HeaderComponnent}
@@ -284,17 +295,15 @@ export default function Home() {
         renderItem={({item}) => <RenderItem item={item} />}
         keyExtractor={(item) => item.id}
         showsVerticalScrollIndicator={false}
-        ListFooterComponent={
-          <View style={{marginBottom:80}}>
-
-          </View>
-        }
+        ListFooterComponent={<View style={{marginBottom: 80}}></View>}
+        onScrollEndDrag={onEnd}
       />
     );
   }
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: COLORS.white}}>
+      <StatusBar backgroundColor={COLORS.green} />
       {renderPromo()}
     </SafeAreaView>
   );
